@@ -1,7 +1,10 @@
-chrome.storage.onChanged.addListener(function(changes, sync) {
-    let changedItems = Object.keys(changes);
-    for(let item of changedItems) {
-        console.log(changes[item].oldValue);
-        console.log(changes[item].newValue);
+console.log("hi");
+const display = document.querySelector('#display');
+
+chrome.storage.onChanged.addListener(function(changes, namespace) {
+    for(var key in changes) {
+        var storageChange = changes[key];
+        console.log('Storage key "%s" in namespace "%s" changed.', + 'Old value was "%s", new value is "%s"', key, namespace, storageChange.oldValue, storageChange.newValue);
+        display.textContent = storageChange.newValue;
     }
-});
+})

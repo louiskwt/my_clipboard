@@ -1,2 +1,79 @@
-@import "https://cdn.jsdelivr.net/npm/bulma@0.9.1/css/bulma-rtl.min.css"
+#open-clipboard {
+    cursor: pointer;
+    border: 1px solid black;
+    outline: none;
+    padding: 0.3em 0.5em;
+    background: tan;
+    font-size: 1.25rem;
+    font-weight: bold;
+    position: fixed;
+    top: 5%;
+    left: 95%;
+    z-index: 2000;
+}
 
+.clipboard-modal {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    /* use scale to make it smoother */
+    transform: translate(-50%, -50%) scale(0);
+    transition: 200ms ease-in-out;
+    border: 1px solid black;
+    border-radius: 10px;
+    z-index: 3000;
+    background-color: white;
+    width: 500px;
+    max-width: 80%;
+}
+
+.clipboard-modal.active {
+    transform: translate(-50%, -50%) scale(1);
+}
+
+.clipboard-header{
+    padding: 10px 15px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid black;
+}
+
+.clipboard-header .title{
+    font-size: 1.25rem;
+    font-weight: bold;
+}
+
+.clipboard-header .close-clipboard {
+    cursor: pointer;
+    border: none;
+    outline: none;
+    background: none;
+    font-size: 1.25rem;
+    font-weight: bold;
+}
+
+.clipboard-body {
+    padding: 10px 15px;
+}
+
+#clipboard-overlay {
+    position: fixed;
+    opacity: 0;
+    transition: 200ms ease-in-out;
+    /* set top, left, right, bottom, to push it to full screen */
+    top: 0; 
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, .5);
+    /* allow clicking on the content outside the overlay */
+    pointer-events: none;
+    z-index: 2000;
+}
+
+#clipboard-overlay.active {
+    /* disable clicking on the content behind the overlay; allow toggling */
+    pointer-events: all;
+    opacity: 1;
+}
