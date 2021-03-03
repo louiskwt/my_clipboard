@@ -65,13 +65,16 @@ function closeModal(modal) {
     overlay.classList.remove('active');
 }
 
-// Copy text logic
+
 window.addEventListener('copy', (e) => {
     const selectedText = document.getSelection().toString();
-    console.log(selectedText);
-    const clipboard = document.querySelector('.clipboard-body');
-    console.log(clipboard);
-    clipboard.innerHTML += `<div class="clipboard-card">${selectedText}</div>`;
-    // clipboard.innerHTML += copiedText
+    
+    if(!e.target.classList.contains("clipboard-card")) {
+        // Set clipboard data to allow normal copying
+        e.clipboardData.setData('text/plain', selectedText)
+        // add selected text to the clipboard
+        const clipboard = document.querySelector('.clipboard-body');
+        clipboard.innerHTML += `<div class="clipboard-card">${selectedText}</div>`;
+    }
     e.preventDefault();
 })
