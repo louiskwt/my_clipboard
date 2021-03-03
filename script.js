@@ -71,7 +71,7 @@ window.addEventListener('copy', (e) => {
     console.log(selectedText);
     const clipboard = document.querySelector('.clipboard-body');
     console.log(clipboard);
-    clipboard.innerHTML += `<div>${selectedText}</div>`;
+    clipboard.innerHTML += `<div class="clipboard-card">${selectedText}</div>`;
     // clipboard.innerHTML += copiedText
     e.preventDefault();
 })

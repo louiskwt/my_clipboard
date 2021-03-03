@@ -8,8 +8,13 @@
     font-weight: bold;
     position: fixed;
     top: 5%;
-    left: 95%;
+    left: 99.5%;
     z-index: 2000;
+    transition: left, 1s;
+}
+
+#open-clipboard:hover {
+    left: 96%;
 }
 
 .clipboard-modal {
@@ -55,7 +60,24 @@
 
 .clipboard-body {
     padding: 10px 15px;
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
 }
+
+.clipboard-card {
+    background: #FBE364;
+    border: 1px solid #FBE364;
+    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+    transition: 0.3s;
+    width: 40%;
+    padding: 32px 32px;
+    margin-bottom: 2em;
+}
+
+.clipboard-card:hover {
+    box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
+  }
 
 #clipboard-overlay {
     position: fixed;
@@ -77,3 +99,4 @@
     pointer-events: all;
     opacity: 1;
 }
+
