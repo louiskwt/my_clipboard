@@ -1,21 +1,39 @@
 #open-clipboard {
+    width: 105px;
+    height: 0;
+    border-bottom: 20px solid #FBE364;
+    border-top: 20px solid #FBE364;
+    border-left: 15px solid transparent;
+    float: right;
+    margin-bottom: 20px;
+    font-size: 18px;
+    color: black;
+    font-weight:700;
+    position: absolute;
+    right: 0px;
+    top: 25px;
+    left: 99%;
     cursor: pointer;
-    border: 1px solid black;
-    outline: none;
-    padding: 0.3em 0.5em;
-    background: tan;
-    font-size: 1.25rem;
-    font-weight: bold;
-    position: fixed;
-    top: 5%;
-    left: 99.5%;
     z-index: 2000;
-    transition: left, 1s;
+    position: fixed;
 }
 
+
+ 
 #open-clipboard:hover {
-    left: 96%;
+    transform: translateX(-60px);
+
 }
+
+#open-clipboard-text {
+    color: black;
+    position: relative;
+    top: -16px;
+    text-align: center;
+    right: -10px;
+    font-size: 0.9em;
+}
+
 
 .clipboard-modal {
     position: fixed;

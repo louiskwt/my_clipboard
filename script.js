@@ -2,9 +2,9 @@
 const body = document.querySelector('body');
 
 // UI for open clipboard
-const openModalButtons = document.createElement('button');
+const openModalButtons = document.createElement('div');
 
-openModalButtons.textContent = 'C';
+openModalButtons.innerHTML = `<span id="open-clipboard-text">Open</span>`;
 openModalButtons.id = 'open-clipboard'
 
 body.insertBefore(openModalButtons, body.firstChild);
