@@ -73,8 +73,12 @@ window.addEventListener('copy', (e) => {
         // Set clipboard data to allow normal copying
         e.clipboardData.setData('text/plain', selectedText)
         // add selected text to the clipboard
+        let displayedText = selectedText;
+        if(displayedText.length >= 60) {
+            displayedText = displayedText.slice(0, 60) + "..."
+        }
         const clipboard = document.querySelector('.clipboard-body');
-        clipboard.innerHTML += `<div class="clipboard-card">${selectedText}</div>`;
+        clipboard.innerHTML += `<div class="clipboard-card"><span class="clipboard-card-text">${displayedText}</span></div>`;
     }
     e.preventDefault();
 })
