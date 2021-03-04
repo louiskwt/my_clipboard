@@ -14,7 +14,7 @@
     top: 25px;
     left: 99%;
     cursor: pointer;
-    z-index: 2000;
+    z-index: 3000;
     position: fixed;
 }
 
@@ -22,7 +22,7 @@
  
 #open-clipboard:hover {
     transform: translateX(-60px);
-
+    z-index: 9000;
 }
 
 #open-clipboard-text {
@@ -44,7 +44,7 @@
     transition: 200ms ease-in-out;
     border: 1px solid black;
     border-radius: 10px;
-    z-index: 3000;
+    z-index: 5000;
     background-color: white;
     width: 500px;
     max-width: 80%;
@@ -109,7 +109,7 @@
     background-color: rgba(0, 0, 0, .5);
     /* allow clicking on the content outside the overlay */
     pointer-events: none;
-    z-index: 2000;
+    z-index: 3000;
 }
 
 #clipboard-overlay.active {
