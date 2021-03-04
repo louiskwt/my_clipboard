@@ -69,16 +69,27 @@ function closeModal(modal) {
 window.addEventListener('copy', (e) => {
     const selectedText = document.getSelection().toString();
     
-    if(!e.target.classList.contains("clipboard-card")) {
+    if(!e.target.classList.contains("clipboard-card-text")) {
         // Set clipboard data to allow normal copying
         e.clipboardData.setData('text/plain', selectedText)
         // add selected text to the clipboard
         let displayedText = selectedText;
+        // turncate the display text
         if(displayedText.length >= 60) {
-            displayedText = displayedText.slice(0, 60) + "..."
+            // keep the length of the text at 60 chracter
+            displayedText = displayedText.slice(0, 60) + " ..."
         }
         const clipboard = document.querySelector('.clipboard-body');
-        clipboard.innerHTML += `<div class="clipboard-card"><span class="clipboard-card-text">${displayedText}</span></div>`;
+        clipboard.innerHTML += `<div class="clipboard-card"><span class="clipboard-card-text" id="${selectedText}">${displayedText}</span></div>`;
     }
     e.preventDefault();
 })
+
+// Event handlers for copy on click
+// body.addEventListener('click', (e) => {
+//     if(e.target.classList.contains("clipboard-card-text")) {
+//         console.log(e.target.id);
+//         e.clipboardData.setData('text/plain', e.target.id);
+
+//     }
+// })
