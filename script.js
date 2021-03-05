@@ -69,27 +69,30 @@ function closeModal(modal) {
 window.addEventListener('copy', (e) => {
     const selectedText = document.getSelection().toString();
     
-    if(!e.target.classList.contains("clipboard-card-text")) {
+    if(!e.target.classList.contains("clipboard-text-area")) {
         // Set clipboard data to allow normal copying
         e.clipboardData.setData('text/plain', selectedText)
-        // add selected text to the clipboard
-        let displayedText = selectedText;
-        // turncate the display text
-        if(displayedText.length >= 60) {
-            // keep the length of the text at 60 chracter
-            displayedText = displayedText.slice(0, 60) + " ..."
+        // Turncate the text
+        let htmlContent = '';
+        if(selectedText.length > 60) {
+           htmlContent = `<div class="clipboard-card"><textarea disabled class="clipboard-text-area" cols="10" rows="5">${selectedText}</textarea><div>...</div></div>`;
+        } else {
+            htmlContent = `<div class="clipboard-card"><textarea disabled class="clipboard-text-area" cols="10" rows="5">${selectedText}</textarea></div>`;
         }
+    
         const clipboard = document.querySelector('.clipboard-body');
-        clipboard.innerHTML += `<div class="clipboard-card"><span class="clipboard-card-text" id="${selectedText}">${displayedText}</span></div>`;
+        clipboard.innerHTML += htmlContent;
     }
     e.preventDefault();
 })
 
 // Event handlers for copy on click
-// body.addEventListener('click', (e) => {
-//     if(e.target.classList.contains("clipboard-card-text")) {
-//         console.log(e.target.id);
-//         e.clipboardData.setData('text/plain', e.target.id);
-
-//     }
-// })
+body.addEventListener('click', (e) => {
+    if(e.target.classList.contains("clipboard-text-area")) {
+        let copyText = e.target
+        copyText.select();
+        copyText.setSelectionRange(0, 99999);
+        document.execCommand("copy");
+        alert("Copied!");
+    }
+})

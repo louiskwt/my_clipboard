@@ -86,6 +86,8 @@
 
 .clipboard-card {
     background: #FBE364;
+    display: flex;
+    flex-direction: column;
     color: black;
     border: 1px solid #FBE364;
     box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
@@ -93,14 +95,18 @@
     width: 40%;
     padding: 32px 32px;
     margin-bottom: 2em;
-    --lh: 1.4rem;
-    line-height: var(--lh);
 }
 
 .clipboard-card:hover {
     box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
   }
 
+.clipboard-text-area {
+    resize: none !important;
+    background: #FBE364;
+    border: none !important;
+    overflow: hidden !important;
+}
 
 
 #clipboard-overlay {
