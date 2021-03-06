@@ -4,118 +4,81 @@ class UI {
         this.body = document.querySelector('body');
     }
     buildBtn() {
-        const template = `
-                            <div id="open-clipboard">
-                                <span id="open-clipboard-text">Open</span>           
-                            </div>
-                        `;
-        this.body.innerHTML += template;
+        const btn = document.createElement('div');
+        btn.id = "open-clipboard";
+        const template = `<span id="open-clipboard-text">Open</span>`;
+        btn.innerHTML += template;
+        this.body.insertBefore(btn, this.body.firstChild);
         return document.querySelector('#open-clipboard');
     }
 
     buildClipboard() {
+        const clipboard = document.createElement('div');
+        clipboard.classList.add('clipboard-modal');
         const template = `
-                            <div class="clipboard-modal">
                                 <div class="clipboard-header">
                                     <div class="clipboard-title">Clipboard</div>
                                     <button class="close-clipboard">&times;</button>
                                 </div>
                                 <div class="clipboard-body"></div>
-                            </div>
                         `;
-        this.body.innerHTML += template;
+        clipboard.innerHTML += template;
+        this.body.insertBefore(clipboard, this.body.secondChild);
+        return document.querySelector('.clipboard-modal');
     }
     buildOverlay() {
-        const template = `<div id="clipboard-overlay"></div>`
-        this.body.innerHTML += template;
+        const overlay = document.createElement('div');
+        overlay.id = 'clipboard-overlay';
+        this.body.insertBefore(overlay, this.body.secondChild);
+        return document.querySelector('#clipboard-overlay');
     }
 
 }
 // init UI class and build the UI
 const ui = new UI;
 
-ui.buildBtn();
 
-ui.buildClipboard();
-
-ui.buildOverlay();
-
-// get the UI elements for Eventlistener
-const openModalButton = document.querySelector('#open-clipboard');
-const modal = document.querySelector('.clipboard-modal');
-const overlay = document.querySelector('#clipboard-overlay');
-
-
-// get the body
-// const body = document.querySelector('body');
-
-// // UI for open clipboard
-// const openModalButtons = document.createElement('div');
-
-// openModalButtons.innerHTML = `<span id="open-clipboard-text">Open</span>`;
-// openModalButtons.id = 'open-clipboard'
-
-// body.insertBefore(openModalButtons, body.firstChild);
-
-
-// UI for modal
-// const modal = document.createElement('div');
-// modal.classList.add('clipboard-modal');
-
-// const modalContent = `
-//                         <div class="clipboard-header">
-//                             <div class="clipboard-title">Clipboard</div>
-//                             <button class="close-clipboard">&times;</button>
-//                         </div>
-//                         <div class="clipboard-body">
-//                         </div>
-//                     `
-// modal.innerHTML += modalContent;
-
-// body.insertBefore(modal, body.secondChild);
-
-// UI for overlay
-// const overlay = document.createElement('div');
-// overlay.id = 'clipboard-overlay';
-
-// body.insertBefore(overlay, body.thirdChild);
-
-
+const openClipboardBtn = ui.buildBtn();
+const clipboard = ui.buildClipboard();
+const overlay = ui.buildOverlay();
 
 // UI Eventlinstener
-openModalButton.addEventListener('click', () => {
+openClipboardBtn.addEventListener('click', () => {
     console.log('fired');
-    openModal(modal);
+    openClipboard(clipboard);
 })
 
-modal.addEventListener('click', (e) => {
+clipboard.addEventListener('click', (e) => {
     console.log('fired');
     if(e.target.classList.contains('close-clipboard')) {
-        closeModal(modal);
+        closeClipboard(clipboard);
     }
 })
 
 overlay.addEventListener('click', () => {
-    const Modal = document.querySelector('.clipboard-modal.active');
-    closeModal(Modal);
+    const clipboard = document.querySelector('.clipboard-modal.active');
+    closeClipboard(clipboard);
 })
 
 
-// Functions to open and close clipboard modal
-function openModal(modal) {
+// // Functions to open and close clipboard modal
+function openClipboard(clipBoard) {
     console.log('fired');
-    if(modal == null) return
-    modal.classList.add('active');
+    if(clipBoard == null) return
+    clipBoard.classList.add('active');
     overlay.classList.add('active');
 }
 
-function closeModal(modal) {
-    if(modal == null) return
-    modal.classList.remove('active');
+function closeClipboard(clipBoard) {
+    if(clipBoard == null) return
+    clipBoard.classList.remove('active');
     overlay.classList.remove('active');
 }
 
-window.addEventListener('copy', (e) => {
+// Eventt Listener for copying text
+ui.body.addEventListener('copy', (e) => {
+    // checking
+    console.log("copied")
     // Get the selected text
     const selectedText = document.getSelection().toString();
     const card = document.querySelectorAll('.clipboard-card');
@@ -133,8 +96,8 @@ window.addEventListener('copy', (e) => {
             htmlContent = `<div class="clipboard-card"><textarea disabled class="clipboard-text-area" cols="3" rows="5">${selectedText}</textarea></div>`;
         }
     
-        const clipboard = document.querySelector('.clipboard-body');
-        clipboard.innerHTML += htmlContent;
+        const board = document.querySelector('.clipboard-body');
+        board.innerHTML += htmlContent;
     }
     e.preventDefault();
 })
@@ -146,8 +109,9 @@ function removeCard(elem) {
     }
 }
 
-// Event handlers for copy on click
-modal.addEventListener('click', (e) => {
+// // Event handlers for copy on click
+clipboard.addEventListener('click', (e) => {
+    console.log("fired");
     if(e.target.classList.contains("clipboard-text-area")) {
         let copyText = e.target;
         copyText.select();
@@ -164,7 +128,7 @@ modal.addEventListener('click', (e) => {
     } 
 })
 
-// Show Alert UI
+// // Show Alert UI
 function flashAlert(elem) {
     const alertMsg = document.createElement('div');
     alertMsg.classList.add('clipboard-alert');
@@ -174,3 +138,4 @@ function flashAlert(elem) {
         document.querySelector('.clipboard-alert').remove();
     }, 3000)
 }
+
