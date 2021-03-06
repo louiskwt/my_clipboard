@@ -68,7 +68,6 @@ function closeModal(modal) {
 
 // Show Alert UI
 function flashAlert(elem) {
-    const board = document.querySelector('.clipboard-body');
     const alertMsg = document.createElement('div');
     alertMsg.classList.add('clipboard-alert');
     alertMsg.textContent = 'Copied!';
@@ -82,16 +81,19 @@ function flashAlert(elem) {
 window.addEventListener('copy', (e) => {
     // Get the selected text
     const selectedText = document.getSelection().toString();
+    const card = document.querySelectorAll('.clipboard-card');
     
     if(!e.target.classList.contains("clipboard-text-area")) {
+        // remove the first card if the number of card is bigger than 4
+        removeCard(card);
         // Set clipboard data to allow normal copying
         e.clipboardData.setData('text/plain', selectedText)
         // Turncate the text
         let htmlContent = '';
         if(selectedText.length > 60) {
-           htmlContent = `<div class="clipboard-card"><textarea disabled class="clipboard-text-area" cols="10" rows="5">${selectedText}</textarea><div>...</div></div>`;
+           htmlContent = `<div class="clipboard-card"><textarea disabled class="clipboard-text-area" cols="3" rows="5">${selectedText}</textarea><div>...</div></div>`;
         } else {
-            htmlContent = `<div class="clipboard-card"><textarea disabled class="clipboard-text-area" cols="10" rows="5">${selectedText}</textarea></div>`;
+            htmlContent = `<div class="clipboard-card"><textarea disabled class="clipboard-text-area" cols="3" rows="5">${selectedText}</textarea></div>`;
         }
     
         const clipboard = document.querySelector('.clipboard-body');
@@ -99,6 +101,13 @@ window.addEventListener('copy', (e) => {
     }
     e.preventDefault();
 })
+
+function removeCard(elem) {
+    if(elem.length > 3) {
+        console.log("removed");
+        elem[0].remove();
+    }
+}
 
 // Event handlers for copy on click
 modal.addEventListener('click', (e) => {
