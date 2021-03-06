@@ -66,7 +66,21 @@ function closeModal(modal) {
 }
 
 
+// Show Alert UI
+function flashAlert(elem) {
+    const board = document.querySelector('.clipboard-body');
+    const alertMsg = document.createElement('div');
+    alertMsg.classList.add('clipboard-alert');
+    alertMsg.textContent = 'Copied!';
+    elem.insertBefore(alertMsg, elem.firstChild);
+    setTimeout(() => {
+        document.querySelector('.clipboard-alert').remove();
+    }, 3000)
+}
+
+
 window.addEventListener('copy', (e) => {
+    // Get the selected text
     const selectedText = document.getSelection().toString();
     
     if(!e.target.classList.contains("clipboard-text-area")) {
@@ -93,6 +107,7 @@ body.addEventListener('click', (e) => {
         copyText.select();
         copyText.setSelectionRange(0, 99999);
         document.execCommand("copy");
-        alert("Copied!");
+        console.log(e.target.parentNode);
+        flashAlert(e.target.parentNode);
     }
 })
