@@ -61,22 +61,20 @@
     align-items: center;
     border-bottom: 1px solid black;
     color: black;
-    font-size: 2em !important;
+}
+
+.clipboard-title {
+    font-size: 1.25em !important;
     font-family: 'Roboto', sans-serif !important;
     font-weight: 600 !important;
 }
 
-.clipboard-header .title{
-    font-size: 1.25rem;
-    font-weight: bold;
-}
-
-.clipboard-header .close-clipboard {
+.close-clipboard {
     cursor: pointer;
     border: none;
     outline: none;
     background: none;
-    font-size: 1.25rem;
+    font-size: 1.25em;
     font-weight: bold;
 }
 
