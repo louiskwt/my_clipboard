@@ -101,13 +101,19 @@ window.addEventListener('copy', (e) => {
 })
 
 // Event handlers for copy on click
-body.addEventListener('click', (e) => {
+modal.addEventListener('click', (e) => {
     if(e.target.classList.contains("clipboard-text-area")) {
-        let copyText = e.target
+        let copyText = e.target;
         copyText.select();
         copyText.setSelectionRange(0, 99999);
         document.execCommand("copy");
-        console.log(e.target.parentNode);
+        flashAlert(e.target.parentNode.parentNode);
+    } else if(e.target.firstChild.className === "clipboard-text-area") {
+        console.log(e.target.firstChild);
+        let copyText = e.target.firstChild;
+        copyText.select();
+        copyText.setSelectionRange(0, 99999);
+        document.execCommand("copy");
         flashAlert(e.target.parentNode);
-    }
+    } 
 })
