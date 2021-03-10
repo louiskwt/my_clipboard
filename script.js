@@ -42,7 +42,7 @@ const openClipboardBtn = ui.buildBtn();
 const clipboard = ui.buildClipboard();
 const overlay = ui.buildOverlay();
 
-// UI Eventlinstener
+// Clipboard UI Eventlinstener
 openClipboardBtn.addEventListener('click', () => {
     console.log('fired');
     openClipboard(clipboard);
@@ -61,7 +61,7 @@ overlay.addEventListener('click', () => {
 })
 
 
-// // Functions to open and close clipboard modal
+// Functions to open and close clipboard modal
 function openClipboard(clipBoard) {
     console.log('fired');
     if(clipBoard == null) return
@@ -119,8 +119,7 @@ function removeCard(elem) {
     }
 }
 
-
-// // Event handlers for copy on click
+// Event handlers for copy on click
 clipboard.addEventListener('click', (e) => {
     // Test code
     // console.log("fired");
