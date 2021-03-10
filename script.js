@@ -77,17 +77,27 @@ function closeClipboard(clipBoard) {
 
 // Eventt Listener for copying text
 ui.body.addEventListener('copy', (e) => {
-    // checking
-    console.log("copied")
-    // Get the selected text
-    const selectedText = document.getSelection().toString();
     const card = document.querySelectorAll('.clipboard-card');
-    
+
+    if(e.target.classList.contains("clipboard-text-area")) {
+        const copiedText = e.target;
+        e.clipboardData.setData('text/plain', copiedText.value);
+        console.log("copied clipboard text");
+    } 
+    if(e.target.firstChild.className === "clipboard-text-area") {
+        const copiedText = e.target.firstChild;
+        e.clipboardData.setData('text/plain', copiedText.value);
+        console.log("copied clipboard text");
+    }
+
     if(!e.target.classList.contains("clipboard-text-area")) {
+        // Get the selected text
+        const selectedText = document.getSelection().toString();
         // remove the first card if the number of card is bigger than 4
         removeCard(card);
         // Set clipboard data to allow normal copying
-        e.clipboardData.setData('text/plain', selectedText)
+        e.clipboardData.setData('text/plain', selectedText);
+        console.log('Copied non-clipboard text');
         // Turncate the text
         let htmlContent = '';
         if(selectedText.length > 60) {
@@ -109,20 +119,20 @@ function removeCard(elem) {
     }
 }
 
+
 // // Event handlers for copy on click
 clipboard.addEventListener('click', (e) => {
-    console.log("fired");
+    // Test code
+    // console.log("fired");
+    // console.log(e.target.classList.contains("clipboard-text-area"));
+    // console.log(e.target.firstChild.className === "clipboard-text-area");
+    // console.log(e.target);
     if(e.target.classList.contains("clipboard-text-area")) {
-        let copyText = e.target;
-        copyText.select();
-        copyText.setSelectionRange(0, 99999);
+        // simply trigger the copy command
         document.execCommand("copy");
         flashAlert(e.target.parentNode.parentNode);
     } else if(e.target.firstChild.className === "clipboard-text-area") {
-        console.log(e.target.firstChild);
-        let copyText = e.target.firstChild;
-        copyText.select();
-        copyText.setSelectionRange(0, 99999);
+        // simply trigger the copy command
         document.execCommand("copy");
         flashAlert(e.target.parentNode);
     } 
