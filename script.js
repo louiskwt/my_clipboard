@@ -75,6 +75,9 @@ function closeClipboard(clipBoard) {
     overlay.classList.remove('active');
 }
 
+// Event Listener for stoarge change to allow sharing the copied text with other active tabs
+chrome.storage.onChanged.addListener(catchStorageChange);
+
 // Eventt Listener for copying text
 ui.body.addEventListener('copy', (e) => {
     const card = document.querySelectorAll('.clipboard-card');
@@ -93,25 +96,61 @@ ui.body.addEventListener('copy', (e) => {
     if(!e.target.classList.contains("clipboard-text-area")) {
         // Get the selected text
         const selectedText = document.getSelection().toString();
+        setStorage(selectedText);
         // remove the first card if the number of card is bigger than 4
         removeCard(card);
         // Set clipboard data to allow normal copying
         e.clipboardData.setData('text/plain', selectedText);
         console.log('Copied non-clipboard text');
-        // Turncate the text
+        createCard(selectedText);
+    }
+    e.preventDefault();
+})
+
+// Create card
+function createCard(text) {
+    // Checked if card has existed to prevent double cpoying
+    let isCardExisted = false;
+    const cardList = document.querySelector('.clipboard-body').childNodes;
+    cardList.forEach(card => {
+        if(card.textContent === text) {
+            isCardExisted = true;
+        }
+    });
+    // check if card existed before adding a card
+    if(!isCardExisted) {
         let htmlContent = '';
-        if(selectedText.length > 60) {
-           htmlContent = `<div class="clipboard-card"><textarea disabled class="clipboard-text-area" cols="3" rows="5">${selectedText}</textarea><div>...</div></div>`;
+        // Turncate the text
+        if(text.length > 60) {
+           htmlContent = `<div class="clipboard-card"><textarea disabled class="clipboard-text-area" cols="3" rows="5">${text}</textarea><div>...</div></div>`;
         } else {
-            htmlContent = `<div class="clipboard-card"><textarea disabled class="clipboard-text-area" cols="3" rows="5">${selectedText}</textarea></div>`;
+            htmlContent = `<div class="clipboard-card"><textarea disabled class="clipboard-text-area" cols="3" rows="5">${text}</textarea></div>`;
         }
     
         const board = document.querySelector('.clipboard-body');
         board.innerHTML += htmlContent;
     }
-    e.preventDefault();
-})
+}
 
+// Set storage to update other tabs about the new copied text
+function setStorage(text) {
+    chrome.storage.sync.set({ 'card': text}, function() {
+        console.log('saved');
+    });
+}
+
+// catch stoarge change function
+function catchStorageChange(changes) {
+    let changedItems = Object.keys(changes);
+    for (let item of changedItems) {
+        // Logging and checking the text
+        console.log(typeof changes[item].newValue);
+        // outputing the text
+        createCard(changes[item].newValue);
+    }
+}
+
+// Remove card function
 function removeCard(elem) {
     if(elem.length > 3) {
         console.log("removed");
@@ -121,11 +160,13 @@ function removeCard(elem) {
 
 // Event handlers for copy on click
 clipboard.addEventListener('click', (e) => {
+
     // Test code
     // console.log("fired");
     // console.log(e.target.classList.contains("clipboard-text-area"));
     // console.log(e.target.firstChild.className === "clipboard-text-area");
     // console.log(e.target);
+
     if(e.target.classList.contains("clipboard-text-area")) {
         // simply trigger the copy command
         document.execCommand("copy");
@@ -147,4 +188,3 @@ function flashAlert(elem) {
         document.querySelector('.clipboard-alert').remove();
     }, 3000)
 }
-
