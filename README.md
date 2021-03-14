@@ -4,7 +4,7 @@ My-Clipboard is a chrome extension developed to let user store the text they cop
 
 ## Current Version
 
-Version: 1.12 (Beta)
+Version: 1.13 (Beta)
 
 ## Usage
 
@@ -17,6 +17,9 @@ Once you copied the text, you can see it inside the clipboard by clicking the ye
 You can click the clipboard card to copy any text inside the card.
 
 It can only store up to 4 cards on each tab.
+
+V1.13 Update
+    It now allows user to share the copied text among all active tabs via storage functions and storage onChange eventlistener.
 
 
 ## Future Update / Work in Progress
