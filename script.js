@@ -141,10 +141,12 @@ function setStorage(text) {
 
 // catch stoarge change function
 function catchStorageChange(changes) {
+    const cardList = document.querySelector('.clipboard-body').childNodes;
     let changedItems = Object.keys(changes);
     for (let item of changedItems) {
         // Logging and checking the text
         console.log(typeof changes[item].newValue);
+        removeCard(cardList);
         // outputing the text
         createCard(changes[item].newValue);
     }
