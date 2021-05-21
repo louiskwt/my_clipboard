@@ -1,18 +1,22 @@
 {
-    "manifest_version": 2,
-    "name": "My Clipboard",
-    "version": "0.1",
-    "icons": {},
-    "description": "A clipboard app for people who need to do a lot of copy and paste",
-    "content_scripts": [
-        {
-            "matches": ["<all_urls>"],
-            "js": ["script.js"],
-            "css": ["style.css"]
-        }
-    ],
-    "permissions": ["activeTab", "storage"],
-    "browser_action": {
-        "default_popup": "popup.html"
-    }
+	"manifest_version": 2,
+	"name": "My Clipboard",
+	"version": "0.1",
+	"icons": {
+		"16": "icon16.png",
+		"48": "icon48.png",
+		"128": "icon128.png"
+	},
+	"description": "A clipboard app for people who need to do a lot of copy and paste",
+	"content_scripts": [
+		{
+			"matches": ["<all_urls>"],
+			"js": ["script.js"],
+			"css": ["style.css"]
+		}
+	],
+	"permissions": ["activeTab", "storage"],
+	"browser_action": {
+		"default_popup": "popup.html"
+	}
 }
