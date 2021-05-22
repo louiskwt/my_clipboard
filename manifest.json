@@ -3,8 +3,6 @@
 	"name": "My Clipboard",
 	"version": "0.1",
 	"icons": {
-		"16": "icon16.png",
-		"48": "icon48.png",
 		"128": "icon128.png"
 	},
 	"description": "A clipboard app for people who need to do a lot of copy and paste",
