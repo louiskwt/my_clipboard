@@ -4,7 +4,7 @@
 
 #### Description:
 
-Smart Clipboard is a chrome extension that allows user store the text they copied inside a clipboard in Chrome. I decided to develop this extension because I had to do a lot of copy and paste at work and during online lessons. This extension, I hope, can help people perform copying and pasting more efficiently.
+Smart Clipboard is a chrome extension that allows user to store the text they copied inside a clipboard in Chrome. I decided to develop this extension because I had to do a lot of copy and paste at work and during online lessons. This extension, I hope, can help people perform copying and pasting more efficiently.
 
 Inside this chrome extension file, you can find a `manifest.json` files which tells chrome how the extension should behave and what files it should run or include.
 

@@ -172,9 +172,7 @@ function catchStorageChange(changes) {
 }
 
 // Remove card function
-function removeCard(elem) {
-	console.log('removeCard fired');
-
+function removeCard() {
 	// Remove the one that has existed in the list for the longest
 	const parent = document.querySelector('.clipboard-body');
 	parent.removeChild(parent.lastChild);
@@ -182,29 +180,36 @@ function removeCard(elem) {
 
 // Event handlers for copy on click
 clipboard.addEventListener('click', (e) => {
-	// Test code
-	// console.log("fired");
-	// console.log(e.target.classList.contains("clipboard-text-area"));
-	// console.log(e.target.firstChild.className === "clipboard-text-area");
-	// console.log(e.target);
-
+	// Initialise the text
+	let text = '';
 	if (e.target.classList.contains('clipboard-text-area')) {
-		// simply trigger the copy command
-		document.execCommand('copy');
-		flashAlert(e.target.parentNode.parentNode);
+		// set the clip board text to the text contains in the card
+		text = e.target.value;
+		console.log(text);
+		navigator.clipboard.writeText(text).then(() => {
+			console.log('copied');
+		});
+		// Let the user knows that the text has been copied
+		flashAlert();
 	} else if (e.target.firstChild.className === 'clipboard-text-area') {
-		// simply trigger the copy command
-		document.execCommand('copy');
-		flashAlert(e.target.parentNode);
+		// set the clip board text to the text contains in the card
+		text = e.target.firstChild.value;
+		console.log(text);
+		navigator.clipboard.writeText(text).then(() => {
+			console.log('copied');
+		});
+		// Let the user knows that the text has been copied
+		flashAlert();
 	}
 });
 
 // // Show Alert UI
-function flashAlert(elem) {
+function flashAlert() {
 	const alertMsg = document.createElement('div');
 	alertMsg.classList.add('clipboard-alert');
 	alertMsg.textContent = 'Copied!';
-	elem.insertBefore(alertMsg, elem.firstChild);
+	const modal = document.querySelector('.clipboard-modal');
+	modal.insertBefore(alertMsg, modal.firstChild);
 	setTimeout(() => {
 		document.querySelector('.clipboard-alert').remove();
 	}, 3000);

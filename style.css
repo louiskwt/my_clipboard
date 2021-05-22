@@ -128,6 +128,8 @@ textarea {
 	color: black;
 	text-align: center;
 	font-size: 18px !important;
+	border-top: 1px solid black;
+	border-radius: 10px;
 }
 
 #clipboard-overlay {
