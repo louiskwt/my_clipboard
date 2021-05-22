@@ -43,6 +43,7 @@ const overlay = ui.buildOverlay();
 
 // Clipboard UI Eventlinstener
 openClipboardBtn.addEventListener('click', () => {
+	// Manually save text to clipboard
 	console.log('fired');
 	// Check if anything in the clipboard that hasn't been added to the board
 	const card = document.querySelectorAll('.clipboard-card');
@@ -57,6 +58,7 @@ openClipboardBtn.addEventListener('click', () => {
 				removeCard(card);
 			}
 			if (clipboardText.length > 0) {
+				setStorage(clipboardText);
 				createCard(clipboardText);
 			}
 		})
@@ -96,6 +98,50 @@ function closeClipboard(clipBoard) {
 
 // Event Listener for stoarge change to allow sharing the copied text with other active tabs
 chrome.storage.onChanged.addListener(catchStorageChange);
+
+function setStorage(text) {
+	chrome.storage.sync.set({ card: text }, function () {
+		console.log('saved');
+	});
+}
+
+function catchStorageChange(changes) {
+	const cardList = document.querySelector('.clipboard-body').childNodes;
+	let changedItems = Object.keys(changes);
+	for (let item of changedItems) {
+		// Logging and checking the text
+		console.log(typeof changes[item].newValue);
+
+		// outputing the text
+		createCard(changes[item].newValue);
+	}
+}
+
+ui.body.addEventListener('copy', (e) => {
+	const card = document.querySelectorAll('.clipboard-card');
+
+	if (e.target.classList.contains('clipboard-text-area')) {
+		const copiedText = e.target.value;
+		e.clipboardData.setData('text/plain', copiedText);
+		console.log('copied clipboard text');
+	}
+	if (e.target.firstChild.className === 'clipboard-text-area') {
+		const copiedText = e.target.firstChild.value;
+		e.clipboardData.setData('text/plain', copiedText);
+		console.log('copied clipboard text');
+	}
+
+	if (!e.target.classList.contains('clipboard-text-area')) {
+		// Get the selected text
+		let selectedText = document.getSelection().toString();
+		setStorage(selectedText);
+		// Set clipboard data to allow normal copying
+		e.clipboardData.setData('text/plain', selectedText);
+		console.log('Copied non-clipboard text');
+		createCard(selectedText);
+	}
+	e.preventDefault();
+});
 
 // Create card
 function createCard(text) {
@@ -148,26 +194,6 @@ function createCard(text) {
 			// if no, simply add it to the board
 			board.appendChild(card);
 		}
-	}
-}
-
-// Set storage to update other tabs about the new copied text
-function setStorage(text) {
-	chrome.storage.sync.set({ card: text }, function () {
-		console.log('saved');
-	});
-}
-
-// catch stoarge change function
-function catchStorageChange(changes) {
-	const cardList = document.querySelector('.clipboard-body').childNodes;
-	let changedItems = Object.keys(changes);
-	for (let item of changedItems) {
-		// Logging and checking the text
-		console.log(typeof changes[item].newValue);
-		removeCard(cardList);
-		// outputing the text
-		createCard(changes[item].newValue);
 	}
 }
 
