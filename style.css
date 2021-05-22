@@ -1,149 +1,152 @@
 #open-clipboard {
-    width: 105px;
-    height: 0;
-    border-bottom: 20px solid #FBE364;
-    border-top: 20px solid #FBE364;
-    border-left: 15px solid transparent;
-    float: right;
-    margin-bottom: 20px;
-    font-size: 18px;
-    color: black;
-    font-weight:700;
-    position: absolute;
-    right: 0px;
-    top: 25px;
-    left: 99%;
-    cursor: pointer;
-    z-index: 3000;
-    position: fixed;
+	width: 105px;
+	height: 0;
+	border-bottom: 20px solid #fbe364;
+	border-top: 20px solid #fbe364;
+	border-left: 15px solid transparent;
+	float: right;
+	margin-bottom: 20px;
+	font-size: 18px;
+	color: black;
+	font-weight: 700;
+	position: absolute;
+	right: 0px;
+	top: 25px;
+	left: 99%;
+	cursor: pointer;
+	z-index: 3000;
+	position: fixed;
 }
 
-
- 
 #open-clipboard:hover {
-    transform: translateX(-60px);
-    z-index: 9000;
+	transform: translateX(-60px);
+	z-index: 9000;
 }
 
 #open-clipboard-text {
-    color: black;
-    position: relative;
-    top: -15px;
-    text-align: center;
-    right: -10px;
-    font-size: 0.9em;
+	color: black;
+	position: relative;
+	top: -15px;
+	text-align: center;
+	right: -10px;
+	font-size: 0.9em;
 }
 
-
 .clipboard-modal {
-    position: fixed;
-    top: 50%;
-    left: 50%;
-    /* use scale to make it smoother */
-    transform: translate(-50%, -50%) scale(0);
-    transition: 200ms ease-in-out;
-    border: 1px solid black;
-    border-radius: 10px;
-    z-index: 5000;
-    background-color: white;
-    width: 500px;
-    max-width: 80%;
+	position: fixed;
+	top: 50%;
+	left: 50%;
+	/* use scale to make it smoother */
+	transform: translate(-50%, -50%) scale(0);
+	transition: 200ms ease-in-out;
+	border: 1px solid black;
+	border-radius: 10px;
+	z-index: 5000;
+	background-color: white;
+	width: 500px;
+	max-width: 80%;
 }
 
 .clipboard-modal.active {
-    transform: translate(-50%, -50%) scale(1);
+	transform: translate(-50%, -50%) scale(1);
 }
 
-.clipboard-header{
-    padding: 10px 15px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    border-bottom: 1px solid black;
-    color: black;
+.clipboard-header {
+	padding: 10px 15px;
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	border-bottom: 1px solid black;
+	color: black;
 }
 
 .clipboard-title {
-    font-size: 1.25em !important;
-    font-family: 'Roboto', sans-serif !important;
-    font-weight: 600 !important;
+	font-size: 1.25em !important;
+	font-family: 'Roboto', sans-serif !important;
+	font-weight: 600 !important;
 }
 
 .close-clipboard {
-    cursor: pointer;
-    border: none;
-    outline: none;
-    background: none;
-    font-size: 1.25em;
-    font-weight: bold;
+	cursor: pointer;
+	border: none;
+	outline: none;
+	background: none;
+	font-size: 1.25em;
+	font-weight: bold;
 }
 
 .clipboard-body {
-    padding: 10px 15px;
-    display: flex;
-    justify-content: space-around;
-    flex-wrap: wrap;
+	padding: 10px 15px;
+	display: grid;
+	grid-template-columns: 1fr 1fr;
+	gap: 15px 10px;
+	margin: auto;
 }
 
 .clipboard-card {
-    background: #FBE364;
-    color: black;
-    border: 1px solid #FBE364;
-    display: flex;
-    flex-direction: column;
-    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
-    transition: 0.3s;
-    width: 40%;
-    padding: 32px 32px;
-    margin-bottom: 2em;
-    cursor: pointer;
+	background: #fbe364;
+	color: black;
+	border: 1px solid #fbe364;
+	max-width: 190px !important;
+	max-height: 220px !important;
+	box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+	transition: 0.3s;
+	padding: 32px 32px;
+	margin-bottom: 2em;
+	cursor: pointer;
 }
 
 .clipboard-card:hover {
-    box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
-  }
+	box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2);
+}
 
 .clipboard-text-area {
-    resize: none !important;
-    background: #FBE364;
-    border: none !important;
-    overflow: hidden !important;
-    cursor: pointer;
-    min-width: 100% !important;
-    width: 100% !important;
-    box-shadow: none !important;
+	resize: none !important;
+	background: #fbe364;
+	border: none !important;
+	overflow: hidden !important;
+	cursor: pointer;
+	max-width: 140px !important;
+	box-shadow: none !important;
+}
+
+textarea {
+	min-width: 150px !important;
+	min-height: 150px !important;
+	padding: 0 !important;
+	resize: none !important;
+	overflow: hidden !important;
 }
 
 .clipboard-alert {
-    min-width: 100%;
-    height: 20%;
-    top: 0;
-    margin-bottom: 1em;
-    z-index: 6000;
-    background: #cee6b4;
-    color: black;
-    text-align: center;
+	min-width: 100% !important;
+	height: 35px !important;
+	top: 0;
+	margin-bottom: 1em;
+	z-index: 6000;
+	background: #cee6b4;
+	color: black;
+	text-align: center;
+	font-size: 18px !important;
 }
 
-
 #clipboard-overlay {
-    position: fixed;
-    opacity: 0;
-    transition: 200ms ease-in-out;
-    /* set top, left, right, bottom, to push it to full screen */
-    top: 0; 
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background-color: rgba(0, 0, 0, .5);
-    /* allow clicking on the content outside the overlay */
-    pointer-events: none;
-    z-index: 3000;
+	position: fixed;
+	opacity: 0;
+	transition: 200ms ease-in-out;
+	/* set top, left, right, bottom, to push it to full screen */
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	background-color: rgba(0, 0, 0, 0.5);
+	/* allow clicking on the content outside the overlay */
+	pointer-events: none;
+	z-index: 3000;
 }
 
 #clipboard-overlay.active {
-    /* disable clicking on the content behind the overlay; allow toggling */
-    pointer-events: all;
-    opacity: 1;
+	/* disable clicking on the content behind the overlay; allow toggling */
+	pointer-events: all;
+	opacity: 1;
 }
-

@@ -52,8 +52,8 @@ openClipboardBtn.addEventListener('click', () => {
 		.then((clipText) => {
 			console.log(clipText);
 			clipboardText = clipText;
-			console.log(clipboard.children.length);
-			if (card) {
+
+			if (card.length + 1 === 5) {
 				removeCard(card);
 			}
 			if (clipboardText.length > 0) {
@@ -97,38 +97,6 @@ function closeClipboard(clipBoard) {
 // Event Listener for stoarge change to allow sharing the copied text with other active tabs
 chrome.storage.onChanged.addListener(catchStorageChange);
 
-// Eventt Listener for copying text
-// ui.body.addEventListener('copy', (e) => {
-// 	const card = document.querySelectorAll('.clipboard-card');
-
-// 	if (e.target.classList.contains('clipboard-text-area')) {
-// 		const copiedText = e.target;
-// 		e.clipboardData.setData('text/plain', copiedText.value);
-// 		console.log('copied clipboard text');
-// 	}
-// 	const childElement = e.target.firstChild;
-// 	console.log(childElement);
-
-// 	if (e.target.firstChild.classList.contains('clipboard-text-area')) {
-// 		const copiedText = e.target.firstChild;
-// 		e.clipboardData.setData('text/plain', copiedText.value);
-// 		console.log('copied clipboard text');
-// 	}
-
-// 	if (!e.target.classList.contains('clipboard-text-area')) {
-// 		// Get the selected text
-// 		const selectedText = document.getSelection().toString();
-// 		setStorage(selectedText);
-// 		// remove the first card if the number of card is bigger than 4
-// 		removeCard(card);
-// 		// Set clipboard data to allow normal copying
-// 		e.clipboardData.setData('text/plain', selectedText);
-// 		console.log('Copied non-clipboard text');
-// 		createCard(selectedText);
-// 	}
-// 	e.preventDefault();
-// });
-
 // Create card
 function createCard(text) {
 	// Checked if card has existed to prevent double cpoying
@@ -146,16 +114,40 @@ function createCard(text) {
 
 	// check if card existed before adding a card
 	if (!isCardExisted) {
-		let htmlContent = '';
 		// Turncate the text
+		const card = document.createElement('DIV');
+		const cardText = document.createElement('TEXTAREA');
 		if (text.length > 60) {
-			htmlContent = `<div class="clipboard-card"><textarea disabled class="clipboard-text-area" cols="3" rows="5">${text}</textarea><div>...</div></div>`;
+			card.setAttribute('class', 'clipboard-card');
+			cardText.setAttribute('disabled', '');
+			cardText.setAttribute('class', 'clipboard-text-area');
+			cardText.setAttribute('col', '3');
+			cardText.setAttribute('rows', '5');
+			cardText.textContent += text;
+			card.appendChild(cardText);
+			// Add dot to tell user that some text is omitted
+			const dot = document.createTextNode('...');
+			card.appendChild(dot);
 		} else {
-			htmlContent = `<div class="clipboard-card"><textarea disabled class="clipboard-text-area" cols="3" rows="5">${text}</textarea></div>`;
+			card.setAttribute('class', 'clipboard-card');
+			cardText.setAttribute('class', 'clipboard-text-area');
+			cardText.setAttribute('disabled', '');
+			cardText.setAttribute('col', '3');
+			cardText.setAttribute('rows', '5');
+			cardText.textContent += text;
+			card.appendChild(cardText);
 		}
 
 		const board = document.querySelector('.clipboard-body');
-		board.innerHTML += htmlContent;
+		// Check if there's any card in the board
+		if (board.firstChild) {
+			//  if yes, add the new card to the beginning as the first child
+			const ref = board.firstChild;
+			board.insertBefore(card, ref);
+		} else {
+			// if no, simply add it to the board
+			board.appendChild(card);
+		}
 	}
 }
 
@@ -182,10 +174,10 @@ function catchStorageChange(changes) {
 // Remove card function
 function removeCard(elem) {
 	console.log('removeCard fired');
-	if (elem.length > 3) {
-		console.log('removed');
-		elem[0].remove();
-	}
+
+	// Remove the one that has existed in the list for the longest
+	const parent = document.querySelector('.clipboard-body');
+	parent.removeChild(parent.lastChild);
 }
 
 // Event handlers for copy on click
