@@ -14,4 +14,4 @@ Moving on, you can see a `popup.html` file which contains the intructions of how
 
 For the `script.js` files, it has all the functions for the clipboard extension. It is written in JavaScript, and it utilises the Clipboard API to access the content stored in your clipboard. Besides that, it inserts HTML element to every page that the user has opened in order to generate a clipboard and store the copied text for the user. The style of the clipboard is orginised by the CSS rules that are stored in the `style.css` file.
 
-Last but not least, there is a .gitignore file to exclude some of the test folder that I used in development to test out my extension as well as the `.DS_Store file`. On top of that, there's an `icon128.png` file which is the icon for the extension as well as the `README.md` file that you're reading now : )
+Last but not least, there is a .gitignore file to exclude some of the test folder that I used in development to test out my extension as well as the `.DS_Store` file. On top of that, there's an `icon128.png` file which is the icon for the extension as well as the `README.md` file that you're reading now : )
