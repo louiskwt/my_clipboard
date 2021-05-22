@@ -17,7 +17,7 @@ class UI {
 		clipboard.classList.add('clipboard-modal');
 		const template = `
                                 <div class="clipboard-header">
-                                    <div class="clipboard-title">Clipboard</div>
+                                    <div class="clipboard-title">Smart Clipboard</div>
                                     <button class="close-clipboard">&times;</button>
                                 </div>
                                 <div class="clipboard-body"></div>

@@ -1,6 +1,6 @@
 {
 	"manifest_version": 2,
-	"name": "My Clipboard",
+	"name": "Smart Clipboard",
 	"version": "0.1",
 	"icons": {
 		"128": "icon128.png"
