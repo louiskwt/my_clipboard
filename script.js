@@ -137,8 +137,14 @@ ui.body.addEventListener('copy', (e) => {
 		setStorage(selectedText);
 		// Set clipboard data to allow normal copying
 		e.clipboardData.setData('text/plain', selectedText);
-		console.log('Copied non-clipboard text');
-		createCard(selectedText);
+		const card = document.querySelectorAll('.clipboard-card');
+		if (card.length + 1 === 5) {
+			removeCard(card);
+		}
+		if (clipboardText.length > 0) {
+			setStorage(clipboardText);
+			createCard(clipboardText);
+		}
 	}
 	e.preventDefault();
 });
